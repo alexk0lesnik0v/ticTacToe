@@ -31,7 +31,7 @@ namespace Menu
         }
         private void OnMainMenu()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            SceneManager.LoadScene(0);
         }
         
         public void OnExit()
