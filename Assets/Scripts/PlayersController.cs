@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Menu;
 using TMPro;
 using UnityEngine;
 
@@ -6,11 +7,14 @@ public class PlayersController : MonoBehaviour
 {
     [SerializeField] private List<Slot> m_slots;
     [SerializeField] private TMP_Text m_playersTurnText;
+    [SerializeField] private GameObject m_winnerCanvas;
+    [SerializeField] private WinnerMenu m_winnerMenu;
     
     private int m_index = 0;
 
     private void Start()
     {
+        m_winnerCanvas.SetActive(false);
         m_index = 0;
     }
    
@@ -66,8 +70,7 @@ public class PlayersController : MonoBehaviour
 
         if (m_index >= 9)
         {
-            Debug.Log("DRAW");
-            m_playersTurnText.text = "";
+            Win("DRAW");
         }
     }
 
@@ -75,13 +78,18 @@ public class PlayersController : MonoBehaviour
     {
         if (isZero)
         {
-            Debug.Log("Player 2 Win!!!");
-            m_playersTurnText.text = "";
+            Win("Player 2 Win!!!");
         }
         else
         {
-            Debug.Log("Player 1 Win!!!");
-            m_playersTurnText.text = "";
+            Win("Player 1 Win!!!");
         }
+    }
+
+    private void Win(string winner)
+    {
+        m_playersTurnText.text = "";
+        m_winnerCanvas.SetActive(true);
+        m_winnerMenu.SetWinnerText(winner);
     }
 }
