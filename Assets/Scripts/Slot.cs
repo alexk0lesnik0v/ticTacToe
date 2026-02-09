@@ -24,23 +24,24 @@ public class Slot : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        int index = m_playerController.CrossOrZero();
+        bool isZero = m_playerController.CrossOrZero();
         
-        if (index % 2 == 0)
+        if (isZero)
         {
-            m_image.GetComponent<Image>().sprite = m_zero;
-            sprite = m_zero;
-            m_audioSource.PlayOneShot(m_audioClip);
-            
-            m_playerController.CheckWin();
+            SetSprite(m_zero, true);
         }
         else
         {
-            m_image.GetComponent<Image>().sprite = m_cross;
-            sprite = m_cross;
-            m_audioSource.PlayOneShot(m_audioClip);
-            
-            m_playerController.CheckWin();
+            SetSprite(m_cross, false);
         }
+    }
+
+    private void SetSprite(Sprite _sprite, bool isZero)
+    {
+        m_image.GetComponent<Image>().sprite = _sprite;
+        sprite = _sprite;
+        m_audioSource.PlayOneShot(m_audioClip);
+            
+        m_playerController.CheckWin(isZero);
     }
 }
